@@ -150,22 +150,13 @@ async function managerChoices() {
         SELECT 
           CONCAT(first_name, ' ', last_name) AS manager_name 
         FROM 
-          employees 
-        WHERE 
-          role_id = (
-            SELECT 
-              role_id 
-            FROM 
-              roles 
-            WHERE 
-              title = 'Manager'
-          )
+          employees
       `;
     db.query(query, (err, results) => {
       if (err) {
         reject(err);
       } else {
-        const choices = results.map((manager) => manager.manager_name);
+        const choices = results.map((result) => result.manager_name);
         resolve(choices);
       }
     });
