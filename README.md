@@ -19,6 +19,7 @@
   Once the application is started follow the prompts by either inputting data or using the arrow keys to scroll through avaialable selections 
   
   ![image](https://github.com/alexoserna/employee-tracker/assets/118146045/1a326c74-0fa5-41a9-87b5-41d31669c0af)
+  
   [Click here to watch a demonstration](https://drive.google.com/file/d/16SCNdDHCfY_H9wDnqfn83qe8_CXasVmK/view)
 
    ## License
