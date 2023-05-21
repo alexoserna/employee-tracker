@@ -144,6 +144,23 @@ async function roleChoices() {
   });
 }
 
+async function departmentChoices() {
+  return new Promise((resolve, reject) => {
+    const query = 'SELECT department_id, name FROM department';
+    db.query(query, (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        const choices = results.map((department) => ({
+          name: department.name,
+          value: department.department_id,
+        }));
+        resolve(choices);
+      }
+    });
+  });
+}
+
 async function managerChoices() {
   return new Promise((resolve, reject) => {
     const query = `
@@ -221,13 +238,13 @@ async function addRole() {
       type: 'input',
       message: 'Enter the title of the new role:',
       name: 'newRoleTitle',
-      validate: validateInput,
+      validate: validateString,
     },
     {
       type: 'input',
       message: 'Enter the salary for the new role:',
       name: 'newRoleSalary',
-      validate: validateSalary,
+      validate: validateNumber,
     },
     {
       type: 'list',
@@ -256,6 +273,7 @@ async function addRole() {
     init();
   });
 }
+
 //view all departments function
 function viewAllDepartments() {
   db.query(`SELECT * FROM department`, function (err, results) {
@@ -275,7 +293,7 @@ function viewAllRoles() {
 };
 
 //ADD DEPARTMENT FUNCTION
-function addDeptartment() {
+function addDepartment() {
   inquirer.prompt({
     type: 'input',
     message: 'What is the name of the department?',
@@ -285,7 +303,7 @@ function addDeptartment() {
     .then((function (res) {
       db.query("INSERT INTO department SET ?",
         {
-          department_name: res.newDept
+          name: res.newDept
         })
       console.log(`\n Department successfully entered.\n`);
       init();
